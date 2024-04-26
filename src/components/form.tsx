@@ -75,7 +75,7 @@ export function Form() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-4/5 mx-auto flex  justify-around"
+      className="w-4/5 mx-auto flex justify-around"
     >
       {/* first form  */}
       <div className="w-1/5 p-2 m-4 flex flex-col gap-5">
@@ -146,20 +146,20 @@ export function Form() {
           {...register("gender")}
           onValueChange={(value) => setValue("gender", value)}
         >
-          <SelectTrigger className="bg-transparent">
+          <SelectTrigger className="bg-transparent focus:ring-2 focus:ring-royleBlue/50">
             <SelectValue placeholder="Seu gênero" />
           </SelectTrigger>
           {errors.gender && (
             <span className="text-red-500">{errors.gender.message}</span>
           )}
-          <SelectContent className="bg-zinc-800" {...register("gender")}>
-            <SelectItem className="bg-zinc-900 text-zinc-50" value="M">
+          <SelectContent className="bg-royleBlue/20" {...register("gender")}>
+            <SelectItem className="bg-zinc-50" value="M">
               Masculino
             </SelectItem>
-            <SelectItem className="bg-zinc-900 text-zinc-50" value="F">
+            <SelectItem className="bg-zinc-50" value="F">
               Feminino
             </SelectItem>
-            <SelectItem className="bg-zinc-900 text-zinc-50" value="O">
+            <SelectItem className="bg-zinc-50" value="O">
               Prefiro não indentificar
             </SelectItem>
           </SelectContent>
@@ -202,11 +202,11 @@ export function Form() {
           {...register("uf")}
           onValueChange={(value) => setValue("uf", value)}
         >
-          <SelectTrigger className="bg-transparent">
+          <SelectTrigger className="bg-transparent focus:ring-2 focus:ring-royleBlue/50">
             <SelectValue placeholder="Estado" />
           </SelectTrigger>
-          <SelectContent className="bg-zinc-800">
-            <SelectItem className="bg-zinc-900 text-zinc-50" value="SE">
+          <SelectContent className="bg-royleBlue/20">
+            <SelectItem className="bg-zinc-50" value="SE">
               SE
             </SelectItem>
           </SelectContent>
@@ -242,7 +242,7 @@ export function Form() {
         {errors.cid && (
           <span className="text-red-500">{errors.cid.message}</span>
         )}
-        <Button type="submit">Enviar</Button>
+        <Button type="submit" className="bg-royleBlue hover:bg-royleBlue/90">Enviar</Button>
       </div>
     </form>
   );
