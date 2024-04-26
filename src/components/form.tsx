@@ -9,53 +9,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { z } from "zod";
+import { formSchema } from "@/utils/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
 
-const formSchema = z
-  .object({
-    name: z.string().min(2, "Por favor, digite um nome válido!"),
-    email: z.string().email({ message: "Por favor, use um email válido!" }),
-    password: z
-      .string()
-      .min(4, "Por favor, use uma senha com mais de 4 caracteres!"),
-    confirmPassword: z.string(),
-    cpf: z
-      .string()
-      .length(11, "Por favor, use um CPF válido e apenas os números!"),
-    rg: z
-      .string()
-      .min(8, "Por favor, use um CPF válido: 111.111-1")
-      .max(11, "Por favor, use um CPF válido: 111.111-1"),
-    phoneNumber: z
-      .string()
-      .length(11, "Por favor, use um número de telefone válido."),
-    gender: z.string().length(1, {
-      message: "Por favor, selecione uma opção!", //arrumar o erro
-    }),
-    birthDate: z.string().date("Por favor, selecione uma data"),
-    // doctor info
-    doctorName: z
-      .string()
-      .min(9, { message: "Por favor, digite um nome válido!" }),
-    uf: z.string().length(2, "Por favor, selecione uma opção!").toUpperCase(), //arrumar o erro
-    crm: z.string().min(3, "Por favor digite um CRM válido!"),
-    especialidade: z.string().max(25).optional(),
-    areaAtuacao: z.string().max(50).optional(),
-    diagnostico: z
-      .string()
-      .min(3, "Por favor, digite um diagnóstico válido!")
-      .max(
-        255,
-        "Por favor, digite um diagnóstico com no máximo 255 caracteres"
-      ),
-    cid: z.string().max(12, "Por favor, digite um CID válido!"),
-  })
-  .refine((fields) => fields.password === fields.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "As senhas precisam ser iguais!",
-  });
+
 type FormSchema = z.infer<typeof formSchema>;
 
 export function Form() {
@@ -63,6 +23,7 @@ export function Form() {
     register,
     handleSubmit,
     setValue,
+    trigger,
     formState: { errors },
   } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -72,12 +33,54 @@ export function Form() {
     console.log(data);
   };
 
+  const [currentStep, setCurrentStep] = useState(0)
+
+  type FieldName = keyof FormSchema
+
+  const steps = [
+    {
+      id: 1,
+      stepName: 'Seus dados pessoais',
+      fields: ['name', 'email', 'password', 'confirmPassword', 'cpf', 'rg', 'phoneNumber', 'gender', 'birthDate']
+    },
+    {
+      id: 2,
+      stepName: 'Dados médicos',
+      fields: ['doctorName', 'uf', 'crm', 'diagnostico', 'cid']
+    },
+    { id: 3, stepName: 'Complete' }
+  ]
+
+  async function handleNextStep() {
+    const fields = steps[currentStep].fields
+    const output = await trigger(fields as FieldName[], {shouldFocus: true})
+    
+    if (!output) {
+      return
+    }
+
+    if(currentStep < steps.length - 1) {
+      if(currentStep === steps.length -2) {
+        await handleSubmit(onSubmit)()
+      }
+      setCurrentStep(step => step + 1)
+    }
+  }
+
+  function handlePrevStep() {
+    if(currentStep > 0) {
+      setCurrentStep(step => step - 1)
+    }
+  }
+
   return (
+    <section className="w-4/5 mx-auto flex flex-col items-center justify-center gap-5">
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-4/5 mx-auto flex justify-around"
+      className="w-full mx-auto flex justify-around"
     >
       {/* first form  */}
+      {currentStep === 0 && (
       <div className="w-1/5 p-2 m-4 flex flex-col gap-5">
         <h1>Seus dados pessoais</h1>
         <Input
@@ -176,8 +179,10 @@ export function Form() {
           <span className="text-red-500">{errors.birthDate.message}</span>
         )}
       </div>
+      )} 
 
       {/* Second form  */}
+      {currentStep === 1 && (
       <div className="w-1/5 p-2 m-4 flex flex-col gap-5">
         <h1>Dados médicos</h1>
         <Input
@@ -242,8 +247,36 @@ export function Form() {
         {errors.cid && (
           <span className="text-red-500">{errors.cid.message}</span>
         )}
-        <Button type="submit" className="bg-royleBlue hover:bg-royleBlue/90">Enviar</Button>
+        {/* <Button type="submit" className="bg-royleBlue hover:bg-royleBlue/90">Enviar</Button> */}
       </div>
+      )} 
+
+      {currentStep === 2 && (
+        <div>
+          <span>Completed</span>
+        </div>
+      )}
     </form>
+
+    {/*  Navigation buttons  */}
+
+    <div className="space-x-10">
+      <Button 
+        disabled={currentStep === 0}
+        className="bg-royleBlue hover:bg-royleBlue/90"
+        onClick={handlePrevStep}
+        
+        >
+        Anterior
+      </Button>
+      <Button 
+        className="bg-royleBlue hover:bg-royleBlue/90"
+        disabled={currentStep === 3}
+        onClick={handleNextStep}>
+        {currentStep === 1 ?("Próximo") : ("Enviar")}
+      </Button>
+    </div>
+
+    </section>
   );
 }
