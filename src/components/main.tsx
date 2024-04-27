@@ -108,6 +108,7 @@ export function Main() {
             />
           </div>
         ))}
+
       </nav>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -288,13 +289,12 @@ export function Main() {
             {errors.cid && (
               <span className="text-red-500">{errors.cid.message}</span>
             )}
-            {/* <Button type="submit" className="bg-royleBlue hover:bg-royleBlue/90">Enviar</Button> */}
           </div>
         )}
 
         {currentStep === 2 && (
           <div>
-            <span>Completed</span>
+            <span>Dados enviados, aguarde a aprovação do seu cadastro!</span>
           </div>
         )}
       </form>
@@ -311,10 +311,10 @@ export function Main() {
         </Button>
         <Button
           className="bg-royleBlue hover:bg-royleBlue/90"
-          disabled={currentStep === 3}
+          disabled={currentStep === 2}
           onClick={handleNextStep}
         >
-          {currentStep === 1 ? "Próximo" : "Enviar"}
+          {currentStep === 1 ? "Enviar" : "Próximo"}
         </Button>
       </div>
     </section>
