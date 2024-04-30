@@ -11,15 +11,18 @@ import {
 import { z } from "zod";
 import { formSchema } from "@/utils/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
-import { Aside } from "./aside";
-import { Main } from "./main";
+import { Aside } from "../main/aside";
+import { Main } from "../main/main";
+import { NavSteps } from "./nav-steps";
+import { StepProps } from "@/utils/interfaceSteps";
+import { NavigationButton } from "./navigation-button";
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export function Form() {
+export function FormPage() {
   const {
     register,
     handleSubmit,
@@ -38,7 +41,7 @@ export function Form() {
 
   type FieldName = keyof FormSchema;
 
-  const steps = [
+  const steps: StepProps[] = [
     {
       id: 1,
       stepName: "Dados pessoais",
@@ -85,32 +88,8 @@ export function Form() {
   }
 
   return (
-    <Main>
-      <section className="w-full flex flex-col mx-auto items-center justify-center gap-5">
-        <nav className="w-1/2 mx-auto flex items-center justify-around gap-2 p-6">
-          {steps.map((step, index) => (
-            <div
-              key={step.id}
-              className="w-1/2 flex flex-col items-center justify-center text-center"
-            >
-              <div className="w-full flex items-center justify-center p-2 space-x-2 text-center">
-                <div
-                  className={`rounded-full size-6 bg-royleBlue text-zinc-50 flex items-center justify-center ${
-                    currentStep === index ? "opacity-100" : "opacity-20"
-                  }`}
-                >
-                  {step.id}
-                </div>{" "}
-                <span>{step.stepName}</span>
-              </div>
-              <div
-                className={`w-full h-1  ${
-                  currentStep === index ? "bg-royleBlue/70" : "bg-royleBlue/20"
-                }`}
-              />
-            </div>
-          ))}
-        </nav>
+      <section className="w-full flex flex-col mx-auto items-center justify-center -mt-20 gap-5">
+        <NavSteps steps={steps} currentStep={currentStep} />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full mx-auto flex justify-around"
@@ -307,24 +286,9 @@ export function Form() {
         </form>
 
         {/*  Navigation buttons  */}
-
-        <div className="space-x-10">
-          <Button
-            disabled={currentStep === 0}
-            className="bg-royleBlue hover:bg-royleBlue/90"
-            onClick={handlePrevStep}
-          >
-            Anterior
-          </Button>
-          <Button
-            className="bg-royleBlue hover:bg-royleBlue/90"
-            disabled={currentStep === 2}
-            onClick={handleNextStep}
-          >
-            {currentStep === 1 ? "Enviar" : "Próximo"}
-          </Button>
-        </div>
+          <NavigationButton currentStep={currentStep} handlePrevStep={handlePrevStep} handleNextStep={handleNextStep} />
+   
       </section>
-    </Main>
+   
   );
 }

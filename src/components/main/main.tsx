@@ -1,5 +1,3 @@
-"use client";
-
 import { Aside } from "./aside";
 
 export function Main({
@@ -9,7 +7,7 @@ export function Main({
 }>) {
   return (
     <main className="w-full mx-auto flex items-center">
-      <Aside />
+      {/* <Aside /> */}
       {children}
     </main>
   );
