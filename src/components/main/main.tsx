@@ -1,4 +1,5 @@
-import { Aside } from "./aside";
+import { Aside } from "../aside";
+import { SideBar } from "../side-bar";
 
 export function Main({
   children,
@@ -6,8 +7,7 @@ export function Main({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="w-full mx-auto flex items-center">
-      {/* <Aside /> */}
+    <main className="w-full mx-auto flex items-center justify-around">
       {children}
     </main>
   );

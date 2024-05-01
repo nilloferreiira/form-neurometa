@@ -1,17 +1,22 @@
-import { AlignLeft, Dot } from "lucide-react";
+import { ChevronLeft, ChevronRight, Dot  } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
-export function Aside() {
-  const [isAsideOpen, setIsAsideOpen] = useState(true);
+interface SideBarProps {
+  isAsideOpen: boolean
+  setIsAsideOpen: () => void
+}
+
+export function Aside({isAsideOpen, setIsAsideOpen}: SideBarProps) {
 
   return (
-    <aside className={` ${isAsideOpen ? 'w-1/6' : 'w-[5%]'} p-2 flex flex-col gap-5 items-center justify-start h-screen bg-white`}>
+    <aside className={`transition-all ${isAsideOpen ? 'w-2/4 md:w-1/6' : 'w-16'} p-4 flex flex-col gap-5 items-center justify-start h-screen bg-white`}>
       <button
-        className="w-full pl-2"
-        onClick={() => setIsAsideOpen(!isAsideOpen)}
+        className="w-full pl-2 transition-all"
+        onClick={setIsAsideOpen}
       >
-        <AlignLeft />
+        {/* quando aberto colocar para direita */}
+        {isAsideOpen ? <ChevronRight /> : <ChevronLeft />}
+        
       </button>
       {isAsideOpen && (
         <ul className="w-full space-y-2">

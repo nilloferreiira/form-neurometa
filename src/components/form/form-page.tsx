@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
-import { Aside } from "../main/aside";
+import { Aside } from "../aside";
 import { Main } from "../main/main";
 import { NavSteps } from "./nav-steps";
 import { StepProps } from "@/utils/interfaceSteps";
