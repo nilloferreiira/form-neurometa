@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
-import { Aside } from "../aside";
+import { Aside } from "../aside/aside";
 import { Main } from "../main/main";
 import { NavSteps } from "./nav-steps";
 import { StepProps } from "@/utils/interfaceSteps";
@@ -62,7 +62,7 @@ export function FormPage() {
       stepName: "Dados médicos",
       fields: ["doctorName", "uf", "crm", "diagnostico", "cid"],
     },
-    { id: 3, stepName: "Complete" },
+    { id: 3, stepName: "Dados Enviados!" },
   ];
 
   async function handleNextStep() {
@@ -88,7 +88,7 @@ export function FormPage() {
   }
 
   return (
-      <section className="w-full flex flex-col mx-auto items-center justify-center -mt-20 gap-5">
+      <section className="w-full flex flex-col mx-auto items-center justify-center -mt-20 gap-2 md:gap-5">
         <NavSteps steps={steps} currentStep={currentStep} />
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -96,7 +96,7 @@ export function FormPage() {
         >
           {/* first form  */}
           {currentStep === 0 && (
-            <div className="w-1/2 p-2 m-4 flex flex-col gap-5">
+            <div className="w-3/4 md:w-1/2 p-2 m-4 flex flex-col ml-10 gap-5">
               <Input
                 className="bg-transparent"
                 placeholder="Seu nome"
@@ -206,7 +206,7 @@ export function FormPage() {
 
           {/* Second form  */}
           {currentStep === 1 && (
-            <div className="w-1/5 p-2 m-4 flex flex-col gap-5">
+            <div className="w-3/4 md:w-1/2 p-2 m-4 flex flex-col ml-10 gap-5">
               <Input
                 className="bg-transparent"
                 placeholder="Nome do médico que te atendeu"
@@ -279,7 +279,7 @@ export function FormPage() {
           )}
 
           {currentStep === 2 && (
-            <div>
+            <div className="p-4">
               <span>Dados enviados, aguarde a aprovação do seu cadastro!</span>
             </div>
           )}

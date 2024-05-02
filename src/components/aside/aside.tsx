@@ -9,7 +9,7 @@ interface SideBarProps {
 export function Aside({isAsideOpen, setIsAsideOpen}: SideBarProps) {
 
   return (
-    <aside className={`transition-all ${isAsideOpen ? 'w-2/4 md:w-1/6' : 'w-16'} p-4 flex flex-col gap-5 items-center justify-start h-screen bg-white`}>
+    <aside className={`transition-all ${isAsideOpen ? 'w-2/4 md:w-1/6' : 'w-10 md:w-16'} md:p-4 flex flex-col md:gap-5 items-center justify-start h-screen bg-white`}>
       <button
         className="w-full pl-2 transition-all"
         onClick={setIsAsideOpen}
