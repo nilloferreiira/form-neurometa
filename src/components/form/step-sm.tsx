@@ -1,5 +1,4 @@
 import { StepComponentProps } from "@/utils/interfaceStepComponent";
-import { MoveRight } from "lucide-react";
 
 export function StepSm({ step, currentStep, index }: StepComponentProps) {
   return (
@@ -11,7 +10,6 @@ export function StepSm({ step, currentStep, index }: StepComponentProps) {
       >
         {step.id}
       </div>
-      {index !== 2  && (<MoveRight className="ml-5 text-zinc-700"/>)}
     </div>
   );
 }
