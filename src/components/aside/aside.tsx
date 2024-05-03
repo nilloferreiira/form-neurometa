@@ -21,7 +21,7 @@ export function Aside({isAsideOpen, setIsAsideOpen}: SideBarProps) {
       {isAsideOpen && (
         <ul className="w-full space-y-2">
           <li className="flex items-center justify-start hover:opacity-80">
-            <Dot /> <Link href={"#"}>Lista de psicologos</Link>
+            <Dot /> <Link href={"/upload/id"}>Entrega do documento</Link>
           </li>
           <li className="flex items-center justify-start hover:opacity-80">
             <Dot /> <Link href={"#"}>Lista de psicologos</Link>

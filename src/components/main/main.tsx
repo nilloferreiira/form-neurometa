@@ -1,10 +1,6 @@
-export function Main({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export function Main({children}: Readonly<{children: React.ReactNode;}>) {
   return (
-    <main className="w-full mx-auto">
+    <main className={`mx-[5%] w-[95%]`}>
       {children}
     </main>
   );
