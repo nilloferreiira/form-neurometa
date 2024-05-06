@@ -2,22 +2,19 @@
 
 import { Input } from "@/components/ui/input";
 import {
-  SelectContent,
   Select,
+  SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { z } from "zod";
 import { formSchema } from "@/utils/formSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../ui/button";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
-import { Aside } from "../aside/aside";
-import { Main } from "../main/main";
-import { NavSteps } from "./nav-steps";
 import { StepProps } from "@/utils/interfaceSteps";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { NavSteps } from "./nav-steps";
 import { NavigationButton } from "./navigation-button";
 
 type FormSchema = z.infer<typeof formSchema>;

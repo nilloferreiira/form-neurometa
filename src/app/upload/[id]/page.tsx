@@ -18,7 +18,7 @@ export default function UploadPage() {
 
           <a
               download={"#"}
-              className="bg-royleBlue hover:bg-royleBlue/80 text-zinc-50 text-center p-3 text-sm md:text-base rounded-md font-regular"
+              className="bg-royleBlue hover:bg-royleBlue/80 text-zinc-50 text-center p-3 text-sm md:text-base rounded-md font-regular cursor-pointer"
             >
               Download do documento
             </a>
