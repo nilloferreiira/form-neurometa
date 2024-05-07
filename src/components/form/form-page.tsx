@@ -11,7 +11,7 @@ import { FormPersonalUserData } from "./form-personal-user-data";
 import { NavSteps } from "./nav-steps";
 import { NavigationButton } from "./navigation-button";
 import { toast } from "../ui/use-toast";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 
 export function FormPage() {
   const formContext = useForm<FormSchema>({

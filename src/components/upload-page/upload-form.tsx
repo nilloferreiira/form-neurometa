@@ -6,8 +6,7 @@ import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ErrorSpan } from "../error-span";
-import { api } from "@/lib/api";
-import { useToast } from "../ui/use-toast";
+import { useUploadForm } from "@/hooks/use-upload-form";
 
 const isPDF = (file: File) => {
   return file.type === "application/pdf";
@@ -35,7 +34,6 @@ export function UploadForm() {
     resolver: zodResolver(uploadFormSchema),
   });
 
-  const { toast } = useToast()
 
   const onSubmit: SubmitHandler<UploadFormSchema> = async (data) => {
     const pdf = data.file;
@@ -43,21 +41,7 @@ export function UploadForm() {
     const form = new FormData();
     form.append("file", pdf);
 
-    await api
-      .post("/upload/1", form, {
-        headers: { "Content-Type": "application/pdf" },
-      })
-      .then(() => toast({
-        title: 'Arquivo enviado com sucesso!'
-      }))
-      .catch((error) => {
-        toast({
-          title: 'Erro ao enviar o arquivo!',
-          variant: "destructive"
-        })
-        
-        console.log(error)
-      });
+    useUploadForm(form)
   };
 
   return (
