@@ -10,14 +10,40 @@ import { FormDoctorData } from "./form-doctor-data";
 import { FormPersonalUserData } from "./form-personal-user-data";
 import { NavSteps } from "./nav-steps";
 import { NavigationButton } from "./navigation-button";
+import { api } from "@/lib/api";
 
 export function FormPage() {
   const formContext = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<FormSchema> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormSchema> = async (data) => {
+    try {
+      const response = await api.post("/register", {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        cpf: data.cpf,
+        rg: data.rg,
+        phoneNumber: data.phoneNumber,
+        gender: data.gender,
+        birthDate: data.birthDate,
+        doctorName: data.doctorName,
+        uf: data.uf,
+        crm: data.crm,
+        diagnostico: data.diagnostico,
+        cid: data.cid,
+        especialidade: data.especialidade,
+        areaAtuacao: data.areaAtuacao
+      });
+
+    } catch (error) {
+      console.log()
+      formContext.setError("root", {
+        message: 'Error during validation'
+      })
+    }
+
   };
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -36,6 +62,7 @@ export function FormPage() {
 
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) {
+        // verificar se a requisicao retornou erro, se sim, nao permitir q avance
         await formContext.handleSubmit(onSubmit)();
       }
       setCurrentStep((step) => step + 1);
@@ -52,17 +79,11 @@ export function FormPage() {
     <section className="w-full flex flex-col mx-auto items-center justify-center -mt-20 gap-2 md:gap-5">
       <NavSteps steps={steps} currentStep={currentStep} />
       <FormProvider {...formContext}>
-        {currentStep === 0 && (
-          <FormPersonalUserData  onSubmit={onSubmit} />
-        )}
+        {currentStep === 0 && <FormPersonalUserData onSubmit={onSubmit} />}
 
-        {currentStep === 1 && (
-          <FormDoctorData  onSubmit={onSubmit} />
-        )}
-
-        {currentStep === 2 && (
-          <CompletedForm />
-        )}
+        {currentStep === 1 && <FormDoctorData onSubmit={onSubmit} />}
+      
+        {currentStep === 2 && <CompletedForm />}
       </FormProvider>
 
       {/*  Navigation buttons  */}

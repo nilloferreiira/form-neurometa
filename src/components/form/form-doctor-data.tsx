@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/select";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { FormSchema } from "@/utils/formSchema";
+import { ErrorSpan } from "../error-span";
+
 
 interface FormProps {
   onSubmit: SubmitHandler<FormSchema>;
@@ -34,7 +36,7 @@ export function FormDoctorData({ onSubmit }: FormProps) {
           type="text"
         />
         {errors.doctorName && (
-          <span className="text-red-500">{errors.doctorName.message}</span>
+          <ErrorSpan>{errors.doctorName.message}</ErrorSpan>
         )}
         <Input
           className="bg-transparent"
@@ -43,7 +45,7 @@ export function FormDoctorData({ onSubmit }: FormProps) {
           type="number"
         />
         {errors.crm && (
-          <span className="text-red-500">{errors.crm.message}</span>
+          <ErrorSpan>{errors.crm.message}</ErrorSpan>
         )}
         <Select
           {...register("uf")}
@@ -58,7 +60,7 @@ export function FormDoctorData({ onSubmit }: FormProps) {
             </SelectItem>
           </SelectContent>
         </Select>
-        {errors.uf && <span className="text-red-500">{errors.uf.message}</span>}
+        {errors.uf && <ErrorSpan>{errors.uf.message}</ErrorSpan>}
         <Input
           className="bg-transparent"
           placeholder="Especialidade do médico"
@@ -78,7 +80,7 @@ export function FormDoctorData({ onSubmit }: FormProps) {
           type="text"
         />
         {errors.diagnostico && (
-          <span className="text-red-500">{errors.diagnostico.message}</span>
+          <ErrorSpan>{errors.diagnostico.message}</ErrorSpan>
         )}
         <Input
           className="bg-transparent"
@@ -87,7 +89,7 @@ export function FormDoctorData({ onSubmit }: FormProps) {
           type="text"
         />
         {errors.cid && (
-          <span className="text-red-500">{errors.cid.message}</span>
+          <ErrorSpan>{errors.cid.message}</ErrorSpan>
         )}
       </div>
     </form>

@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/select";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { FormSchema } from "@/utils/formSchema";
+import { ErrorSpan } from "../error-span";
+
 
 interface FormProps {
   onSubmit: SubmitHandler<FormSchema>;
@@ -35,7 +37,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             type="text"
           />
           {errors.name && (
-            <span className="text-red-500">{errors.name.message}</span>
+            <ErrorSpan>{errors.name.message}</ErrorSpan>
           )}
           <Input
             className="bg-transparent"
@@ -44,7 +46,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             type="email"
           />
           {errors.email && (
-            <span className="text-red-500">{errors.email.message}</span>
+            <ErrorSpan>{errors.email.message}</ErrorSpan>
           )}
           <Input
             className="bg-transparent"
@@ -53,7 +55,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             type="password"
           />
           {errors.password && (
-            <span className="text-red-500">{errors.password.message}</span>
+            <ErrorSpan>{errors.password.message}</ErrorSpan>
           )}
           <Input
             className="bg-transparent"
@@ -62,9 +64,9 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             type="password"
           />
           {errors.confirmPassword && (
-            <span className="text-red-500">
+            <ErrorSpan>
               {errors.confirmPassword.message}
-            </span>
+            </ErrorSpan>
           )}
 
           <Input
@@ -74,7 +76,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             type="number"
           />
           {errors.phoneNumber && (
-            <span className="text-red-500">{errors.phoneNumber.message}</span>
+            <ErrorSpan>{errors.phoneNumber.message}</ErrorSpan>
           )}
           <Input
             className="bg-transparent"
@@ -83,7 +85,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             type="number"
           />
           {errors.cpf && (
-            <span className="text-red-500">{errors.cpf.message}</span>
+            <ErrorSpan>{errors.cpf.message}</ErrorSpan>
           )}
           <Input
             className="bg-transparent"
@@ -92,7 +94,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             type="text"
           />
           {errors.rg && (
-            <span className="text-red-500">{errors.rg.message}</span>
+            <ErrorSpan>{errors.rg.message}</ErrorSpan>
           )}
           <Select
             {...register("gender")}
@@ -102,7 +104,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
               <SelectValue placeholder="Seu gênero" />
             </SelectTrigger>
             {errors.gender && (
-              <span className="text-red-500">{errors.gender.message}</span>
+              <ErrorSpan>{errors.gender.message}</ErrorSpan>
             )}
             <SelectContent className="bg-royleBlue/20" {...register("gender")}>
               <SelectItem className="bg-zinc-50" value="M">
@@ -125,7 +127,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             type="date"
           />
           {errors.birthDate && (
-            <span className="text-red-500">{errors.birthDate.message}</span>
+            <ErrorSpan>{errors.birthDate.message}</ErrorSpan>
           )}
         </div>
      
