@@ -17,7 +17,7 @@ export function UploadForm() {
   const { register, handleSubmit, formState: { errors } } = useForm<UploadFormSchema>({
     resolver: zodResolver(uploadFormSchema),
   });
-
+  
   const onSubmit: SubmitHandler<UploadFormSchema> = (data) => {
     console.log(data.file);
   };

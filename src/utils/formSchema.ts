@@ -43,3 +43,5 @@ export const formSchema = z
   path: ["confirmPassword"],
   message: "As senhas precisam ser iguais!",
 });
+
+export type FormSchema = z.infer<typeof formSchema>;
