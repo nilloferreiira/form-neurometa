@@ -23,5 +23,5 @@ export async function useAuth(data: FormSchema) {
 
   const { token } = response.data;
 
-  Cookies.set("token", token, { path: "/" });
+  Cookies.set("token", token, { path: "/", expires: 30 });
 }
