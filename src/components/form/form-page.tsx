@@ -10,7 +10,8 @@ import { FormDoctorData } from "./form-doctor-data";
 import { FormPersonalUserData } from "./form-personal-user-data";
 import { NavSteps } from "./nav-steps";
 import { NavigationButton } from "./navigation-button";
-import { api } from "@/lib/api";
+import { toast } from "../ui/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 export function FormPage() {
   const formContext = useForm<FormSchema>({
@@ -19,31 +20,13 @@ export function FormPage() {
 
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
-      const response = await api.post("/register", {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        cpf: data.cpf,
-        rg: data.rg,
-        phoneNumber: data.phoneNumber,
-        gender: data.gender,
-        birthDate: data.birthDate,
-        doctorName: data.doctorName,
-        uf: data.uf,
-        crm: data.crm,
-        diagnostico: data.diagnostico,
-        cid: data.cid,
-        especialidade: data.especialidade,
-        areaAtuacao: data.areaAtuacao
-      });
-
+      useAuth(data);
     } catch (error) {
-      console.log()
-      formContext.setError("root", {
-        message: 'Error during validation'
-      })
+      console.log();
+      toast({
+        title: "Erro ao enviar o formulario",
+      });
     }
-
   };
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -82,7 +65,7 @@ export function FormPage() {
         {currentStep === 0 && <FormPersonalUserData onSubmit={onSubmit} />}
 
         {currentStep === 1 && <FormDoctorData onSubmit={onSubmit} />}
-      
+
         {currentStep === 2 && <CompletedForm />}
       </FormProvider>
 

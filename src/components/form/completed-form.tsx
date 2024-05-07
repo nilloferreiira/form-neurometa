@@ -12,7 +12,7 @@ export function CompletedForm() {
           Para completar seu cadastro é preciso enviar um documento assinado
           pelo seu médico.
         </p>
-        <Link href={"/upload/id"} className="font-semibold underline text-base text-blue-600">Enviar documento</Link>
+        <Link href={"/upload"} className="font-semibold underline text-base text-blue-600">Enviar documento</Link>
       </div>
     </Main>
   );

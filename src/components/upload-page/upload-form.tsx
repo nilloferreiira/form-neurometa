@@ -44,7 +44,7 @@ export function UploadForm() {
     form.append("file", pdf);
 
     await api
-      .post("/upload/2462e529-4f50-43b1-9d4b-fb70ceea1d04", form, {
+      .post("/upload/1", form, {
         headers: { "Content-Type": "application/pdf" },
       })
       .then(() => toast({
