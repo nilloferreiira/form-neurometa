@@ -12,6 +12,7 @@ import { NavSteps } from "./nav-steps";
 import { NavigationButton } from "./navigation-button";
 import { toast } from "../ui/use-toast";
 import { useAuth } from "@/hooks/use-auth";
+import { returnToUpload } from "@/hooks/return-to-upload";
 
 export function FormPage() {
   const formContext = useForm<FormSchema>({
@@ -20,7 +21,15 @@ export function FormPage() {
 
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
-      useAuth(data);
+      const successfulyRegister = useAuth(data);
+      if(!successfulyRegister) {
+        toast({
+          title: 'Erro ao realizar o cadastro.',
+          variant: "destructive"
+        })
+      }
+
+      return returnToUpload;
     } catch (error) {
       console.log();
       toast({
