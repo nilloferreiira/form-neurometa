@@ -27,7 +27,7 @@ export function Aside({isAsideOpen, setIsAsideOpen}: SideBarProps) {
             <Dot /> <Link href={"/upload"}>Entrega do documento</Link>
           </li>
           <li className="flex items-center justify-start hover:opacity-80">
-            <Dot /> <Link href={"#"}>Lista de psicologos</Link>
+            <Dot /> <Link href={"/psicologos"}>Lista de psicologos</Link>
           </li>
         </ul>
       )}
