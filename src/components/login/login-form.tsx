@@ -8,8 +8,7 @@ import { ErrorSpan } from "../error-span";
 import { LoginSchema, loginSchema } from "@/utils/login-schema";
 import { useLogin } from "@/hooks/use-login";
 import { toast } from "../ui/use-toast";
-import { returnToUpload } from "@/hooks/return-to-upload";
-
+import {useRouter} from "next/navigation";
 
 export function LoginForm() {
   const {
@@ -20,14 +19,23 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
-    const login = useLogin(data);
-    if (!login) {
+    const { handleLogin } = useLogin();
+
+    const isLoginsucceeded = handleLogin(data);
+
+    if (!isLoginsucceeded) {
       toast({
         title: "Erro ao fazer login",
         variant: "destructive",
       });
+
+      throw new Error('Erro ao fazer o login')
     }
+
+    return router.push("/upload");
   };
 
   return (

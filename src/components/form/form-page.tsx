@@ -31,7 +31,7 @@ export function FormPage() {
 
       return returnToUpload;
     } catch (error) {
-      console.log();
+      console.log(error);
       toast({
         title: "Erro ao enviar o formulario",
       });
