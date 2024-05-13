@@ -1,5 +1,3 @@
-import React from "react";
-
 export function Info() {
     return (
       <div className="container flex flex-row w-8/12">
