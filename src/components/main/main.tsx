@@ -1,14 +1,10 @@
-import { Aside } from "../aside";
-import { SideBar } from "../side-bar";
+import { Toaster } from "../ui/toaster";
 
-export function Main({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export function Main({children}: Readonly<{children: React.ReactNode;}>) {
   return (
-    <main className="w-full mx-auto flex items-center justify-around">
+    <main className={`mx-[5%] w-[95%]`}>
       {children}
+      <Toaster  />
     </main>
   );
 }

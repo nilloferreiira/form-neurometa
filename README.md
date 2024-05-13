@@ -1,1 +1,1 @@
-### Front-end for neurometa validantion API
+### Front-end for neurometa

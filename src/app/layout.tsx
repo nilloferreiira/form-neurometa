@@ -1,11 +1,8 @@
-
-
+import { SideBar } from "@/components/aside/side-bar";
+import { Header } from "@/components/header/header";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/header/header";
-import { SideBar } from "@/components/side-bar";
-import { createContext } from "vm";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +21,7 @@ export default function RootLayout({
   
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-zinc-100 flex flex-col gap-20`}>
+      <body className={`${inter.className} w-full bg-zinc-100 flex flex-col gap-20`}>
         <div className="w-full">
           <Header />
           <SideBar />
