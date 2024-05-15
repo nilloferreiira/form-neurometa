@@ -16,7 +16,6 @@ export function getUserData() {
 
     const user: UserApproved = jwtDecode(token!)
 
-    console.log(user.approved)
 
     return user
 }

@@ -9,7 +9,7 @@ export function Header() {
   return (
     <header className="w-full bg-white p-4 flex items-center justify-between">
       <div className="flex gap-4 items-center">
-        <Link href={"/"}>
+        <Link href={"/home"}>
           <Logo />
         </Link>
       </div>
