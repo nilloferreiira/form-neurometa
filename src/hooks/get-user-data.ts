@@ -1,9 +1,10 @@
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 
-interface User {
+export interface UserApproved {
     sub: string,
-    name: string
+    name: string,
+    approved: boolean
 }
 
 export function getUserData() {
@@ -13,7 +14,9 @@ export function getUserData() {
         throw new Error('Unauthenticated.')
     }
 
-    const user: User = jwtDecode(token!)
+    const user: UserApproved = jwtDecode(token!)
+
+    console.log(user.approved)
 
     return user
 }

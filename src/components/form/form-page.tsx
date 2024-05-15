@@ -12,12 +12,14 @@ import { NavSteps } from "./nav-steps";
 import { NavigationButton } from "./navigation-button";
 import { toast } from "../ui/use-toast";
 import { useAuth } from "@/hooks/use-auth";
-import { returnToUpload } from "@/hooks/return-to-upload";
+import { useRouter } from "next/navigation";
 
 export function FormPage() {
   const formContext = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
   });
+
+  const router = useRouter()
 
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
@@ -29,7 +31,7 @@ export function FormPage() {
         })
       }
 
-      return returnToUpload;
+      return router.push("/upload");
     } catch (error) {
       console.log(error);
       toast({

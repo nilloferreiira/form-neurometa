@@ -21,8 +21,8 @@ export default function RootLayout({
   
   return (
     <html lang="en">
-      <body className={`${inter.className} w-full bg-zinc-100 flex flex-col gap-20`}>
-        <div className="w-full">
+      <body className={`${inter.className}  bg-zinc-100 flex flex-col gap-20`}>
+        <div className="">
           <Header />
           <SideBar />
         </div>

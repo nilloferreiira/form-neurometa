@@ -10,4 +10,6 @@ export interface Psicologo {
     descricao: string;
     profilePicture?: string;
     horariosDisponiveis: HorarioDisponivel;
+
+    
 }
