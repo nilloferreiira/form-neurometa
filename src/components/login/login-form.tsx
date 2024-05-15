@@ -14,7 +14,7 @@ export function LoginForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   });
@@ -24,7 +24,7 @@ export function LoginForm() {
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
     const { handleLogin } = useLogin();
 
-    const isLoginsucceeded = handleLogin(data);
+    const isLoginsucceeded = await handleLogin(data);
 
     if (!isLoginsucceeded) {
       toast({
@@ -47,8 +47,8 @@ export function LoginForm() {
       {errors.email && <ErrorSpan>{errors.email.message}</ErrorSpan>}
       <Input type="text" placeholder="senha" {...register("password")} />
       {errors.password && <ErrorSpan>{errors.password.message}</ErrorSpan>}
-      <Button className="bg-royleBlue hover:bg-royleBlue/80 text-zinc-50 p-2 text-sm md:text-base rounded-md font-regular">
-        Login
+      <Button disabled={isSubmitting} className="bg-royleBlue hover:bg-royleBlue/80 text-zinc-50 p-2 text-sm md:text-base rounded-md font-regular">
+        {isSubmitting ? 'Logando' : 'Login'}
       </Button>
     </form>
   );
