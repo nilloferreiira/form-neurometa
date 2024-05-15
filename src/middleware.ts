@@ -26,6 +26,11 @@ export default function middleware(request: NextRequest) {
       return NextResponse.redirect(homeURL);
     }
   }
+  if (request.nextUrl.pathname === "/upload") {
+    if (decoded.approved) {
+      return NextResponse.redirect(homeURL);
+    }
+  }
 }
 
 export const config = {
