@@ -22,9 +22,9 @@ export function usePsychologists() {
       console.log(response.data.$values);
       PsychologistResponse = response.data.$values;
 
-    //   if (!Array.isArray(response.data)) {
-    //     throw new Error("Data is not an array!");
-    //   }
+      if (!Array.isArray(response.data)) {
+        throw new Error("Data is not an array!");
+      }
 
     } catch (e) {
       console.log("Erro api getPsychologists");

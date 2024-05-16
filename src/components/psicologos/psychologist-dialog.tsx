@@ -21,6 +21,7 @@ import {
 import { SubmitAppointment } from "./submit-appointment";
 import { NavigationButtons } from "./navigation-buttons";
 import { Psychologist } from "@/utils/interface-psychologist";
+import { formatDateToISO } from "@/utils/formatDateToiso";
 
 type FieldName = keyof AppointmentSchema;
 
@@ -56,7 +57,12 @@ export function PsychologistsDialog(psicologo: Psychologist) {
   }
 
   const onSubmit: SubmitHandler<AppointmentSchema> = async (data) => {
-    console.log(data);
+    try {
+      const dataToSubmit = formatDateToISO(data);
+      console.log(dataToSubmit);
+    } catch (error) {
+      console.error("Error formatting date:", error);
+    }
   };
 
   return (
@@ -66,12 +72,14 @@ export function PsychologistsDialog(psicologo: Psychologist) {
         <DialogDescription className="space-y-3">
           {currentStep === 0 && (
             <h3 className="font-semibold text-zinc-800">
-              {psicologo.user.nome}
-              <h4 className="font-normal text-zinc-500">Selecione uma data para a consulta</h4>
+              <span>Dr: </span>{psicologo.user.nome}
+              <h4 className="font-medium text-zinc-500">
+                Selecione uma data para a consulta
+              </h4>
             </h3>
           )}
-          {currentStep === 1 && <h4>Selecione uma horário</h4>}
-          {currentStep === 2 && <h4>Você está agendando uma consulta para:</h4>}
+          {currentStep === 1 && <h4 className="font-medium text-zinc-500">Selecione uma horário</h4>}
+          {currentStep === 2 && <h4 className="font-medium text-zinc-500">Você está agendando uma consulta para:</h4>}
         </DialogDescription>
       </DialogHeader>
       <form
@@ -83,7 +91,9 @@ export function PsychologistsDialog(psicologo: Psychologist) {
 
           {currentStep === 1 && <AppointmentScheduler />}
 
-          {currentStep === 2 && <SubmitAppointment onSubmit={onSubmit}  />}
+          {currentStep === 2 && (
+            <SubmitAppointment onSubmit={onSubmit} psicologo={psicologo} />
+          )}
         </FormProvider>
       </form>
       <DialogFooter>
