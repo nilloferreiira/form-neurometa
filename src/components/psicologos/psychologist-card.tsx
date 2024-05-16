@@ -1,35 +1,34 @@
 "use client";
 
-import { Psicologo } from "@/utils/interface-psicologo";
-
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { Psychologist } from "@/utils/interface-psychologist";
 
-export function PsychologistsCard(psicologo: Psicologo) {
+export function PsychologistsCard(psicologo: Psychologist) {
   return (
     <div className="w-4/5 bg-white p-2 rounded-xl">
       <Accordion type="single" collapsible>
-        <AccordionItem value={psicologo.id.toString()}>
+        <AccordionItem value={psicologo.user.id}>
           <AccordionTrigger className="w-full focus-visible:ring-0 outline-none">
             <div className="flex flex-row items-start justify-start gap-4">
               <Avatar>
                 <AvatarImage
                   className="size-12 rounded-full"
-                  src={psicologo.profilePicture}
-                  alt={psicologo.nome}
+                  src={psicologo.user.fotoPerfil}
+                  alt={psicologo.user.nome}
                 />
-                <AvatarFallback>{psicologo.nome.slice(0, 2)}</AvatarFallback>
+                <AvatarFallback>{psicologo.user.nome.slice(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
                 <h3 className="font-bold text-xl text-black ">
-                  {psicologo.nome}
+                  {psicologo.user.nome}
                 </h3>
                 <p className="text-sm text-gray-400">
-                  {psicologo.areaEspecializacao}
+                  {psicologo.especialidade}
                 </p>
-                <p className="text-sm text-gray-400">{psicologo.numCRP}</p>
+                <p className="text-sm text-gray-400">{psicologo.crp}</p>
               </div>
             </div>
           </AccordionTrigger>

@@ -1,7 +1,6 @@
 
 import { AppointmentStats } from "@/components/homepage/appointments-stats";
 import { Info } from "@/components/homepage/info";
-import { StatsAgendamento } from "@/components/homepage/stats-1";
 import { Welcome } from "@/components/homepage/welcome";
 import { Main } from "@/components/main/main";
 
@@ -12,7 +11,6 @@ export default function HomePage() {
         <Welcome />
         <Info />
         <AppointmentStats />
-        {/* <StatsAgendamento /> */}
       </div>
     </Main>
   );

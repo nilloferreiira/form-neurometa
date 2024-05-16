@@ -8,8 +8,6 @@ export function AppointmentStats() {
         <h1 className="font-bold text-royleBlue text-4xl">2/4</h1>
       </div>
 
-      {/* <div className="h-40 w-0.5 bg-black/20 "/> */}
-
       <Link
         className="w-4/5 flex flex-col items-center justify-center"
         href={"/psicologos"}

@@ -1,6 +1,5 @@
 "use client";
 
-import { Psicologo } from "@/utils/interface-psicologo";
 import {
   DialogContent,
   DialogDescription,
@@ -9,13 +8,11 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { PickUpDate } from "./pick-up-date";
-import { Button } from "../ui/button";
 import { AppointmentScheduler } from "./appointment-scheduler";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { steps } from "@/utils/steps-appointment";
-import { z } from "zod";
 import { toast } from "../ui/use-toast";
 import {
   AppointmentSchema,
@@ -23,10 +20,11 @@ import {
 } from "@/utils/appointment-schema";
 import { SubmitAppointment } from "./submit-appointment";
 import { NavigationButtons } from "./navigation-buttons";
+import { Psychologist } from "@/utils/interface-psychologist";
 
 type FieldName = keyof AppointmentSchema;
 
-export function PsychologistsDialog(psicologo: Psicologo) {
+export function PsychologistsDialog(psicologo: Psychologist) {
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   const formContext = useForm<AppointmentSchema>({
@@ -68,7 +66,7 @@ export function PsychologistsDialog(psicologo: Psicologo) {
         <DialogDescription className="space-y-3">
           {currentStep === 0 && (
             <h3 className="font-semibold text-zinc-800">
-              {psicologo.nome}
+              {psicologo.user.nome}
               <h4 className="font-normal text-zinc-500">Selecione uma data para a consulta</h4>
             </h3>
           )}
