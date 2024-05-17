@@ -2,12 +2,11 @@ import { LoginSchema } from "@/utils/login-schema";
 import Cookies from "js-cookie";
 import { api } from "@/lib/api";
 import { backend } from "@/lib/backend";
-import { useRouter } from "next/navigation";
 
 export function useLogin() {
   async function handleLogin({ email, password }: LoginSchema) {
     try {
-      await backend.post("/LoginUser", {
+      const backendToken = await backend.post("/LoginUser", {
         email,
         password,
       });
@@ -16,6 +15,10 @@ export function useLogin() {
         email,
         password,
       });
+
+      const jwtToken  = backendToken.data;
+      const jwt = jwtToken.data.token;
+      Cookies.set("jwtToken", jwt, { path: "/", expires: 15})
 
       const { token } = responseToken.data;
       Cookies.set("token", token, { path: "/", expires: 30 });
