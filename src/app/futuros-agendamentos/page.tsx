@@ -3,126 +3,88 @@ import { AgendamentosTable } from "@/components/agendamentos/AgendamentosTable";
 import { Info } from "@/components/homepage/info";
 import { Welcome } from "@/components/homepage/welcome";
 import { Main } from "@/components/main/main";
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import axios from "axios";
+import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
-
-interface Agendamento {
-  nome: string;
-  data: string;
-}
-
-interface User {
-  $id: string;
-  id: string;
-  nome: string;
-  dataNascimento: string;
-  fotoPerfil: string;
-  enderecoCompleto: string;
-  role: string;
-}
-
-interface Paciente {
-  $id: string;
-  pacienteId: string;
-  fotoRgFrente: string;
-  fotoRgVerso: string;
-  comprovanteResidencia: string;
-  relatorioMedico: string;
-  pdfFormatado: string;
-  crmMedico: number;
-  nomeMedico: string;
-  cid: string;
-  ufCrm: string;
-  user: User;
-}
-
-interface Psicologo {
-  $id: string;
-  psicologoId: string;
-  crp: string;
-  descricao: string;
-  especialidade: string;
-  carteiraCrp: string;
-  user: User;
-}
-
-interface Consulta {
-  $id: string;
-  psicologoId: string;
-  data: string;
-  pacienteId: string;
-  dataInicio: string | null;
-  dataFim: string | null;
-  nota: string | null;
-  comentario: string | null;
-  paciente: Paciente;
-  psicologo: Psicologo;
-}
-
-interface Response {
-  $id: string;
-  $values: Consulta[];
-}
+import {
+  Agendamento,
+  Consulta,
+  ResponseData,
+  User,
+} from "@/utils/interfaces/AgendaResponseInterfaces";
+import { requestVariables } from "@/utils/requestVariables/requestVariables";
+import { Spinner } from "@/components/spinner";
 
 export default function FuturosAgendamentos() {
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
-
-  
-  const token: any = Cookies.get('jwt');
-  if (typeof token !== 'string') {
-    console.error('Token is not a string');
-    return;
-  }
-  const header = 'Bearer ' + token;
-  const decodedToken: any = jwtDecode(token);
-  const userId = decodedToken.id;
-  const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  const [loading, setLoading] = useState(true); // Add this line
+  const [usuario, setUsuario] = useState("");
 
   useEffect(() => {
     const fetchAgendamentos = async () => {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
       const formattedYesterday = yesterday.toISOString();
-      
-      const jsonQuery = encodeURIComponent(JSON.stringify({
-        [`${role}Id@igual`]: `${userId}@System.String`,
-        "Data@maior": `${formattedYesterday}@System.DateTime`
-      }));
-      
+
+      const jsonQuery = encodeURIComponent(
+        JSON.stringify({
+          [`${requestVariables.role}Id@igual`]: `${requestVariables.userId}@System.String`,
+          "Data@maior": `${formattedYesterday}@System.DateTime`,
+        })
+      );
+
       try {
-        const response = await axios.get(`https://neurometaoncoapi.azurewebsites.net/api/Agenda/Find?json=${jsonQuery}`, {
-          headers: {
-            'Authorization': header,
-            'Content-Type': 'application/json'
+        const response = await axios.get(
+          `https://neurometaoncoapi.azurewebsites.net/api/Agenda/Find?json=${jsonQuery}`,
+          {
+            headers: {
+              Authorization: requestVariables.header,
+              "Content-Type": "application/json",
+            },
           }
-        });
-      
-        console.log(response.data);  // Log the response data
-      
-        const responseData: Response = response.data;
+        );
+
+        console.log(response.data); // Log the response data
+
+        const responseData: ResponseData = response.data;
         const consultas: Consulta[] = responseData.$values;
-      
-        const agendamentos: Agendamento[] = consultas.map((agendamento: Consulta) => {
-          const nome = role === "Paciente" ? agendamento.psicologo.user.nome : agendamento.paciente.user.nome;
-          return { nome, data: agendamento.data };
-        });
-        console.log(agendamentos);  // Log the agendamentos
+
+        const agendamentos: Agendamento[] = consultas.map(
+          (agendamento: Consulta) => {
+            const nome =
+              requestVariables.role === "Paciente"
+                ? agendamento.psicologo.user.nome
+                : agendamento.paciente.user.nome;
+            return { nome, data: agendamento.data };
+          }
+        );
+        const usuario: User =
+          requestVariables.role === "Paciente"
+            ? consultas[0].paciente.user
+            : consultas[0].psicologo.user;
+
+        console.log(agendamentos); // Log the agendamentos
         setAgendamentos(agendamentos);
+        setUsuario(usuario.nome);
+        setLoading(false); // Add this line
       } catch (error) {
-        console.error('Error fetching data:', error);
+        setLoading(false); // Add this line
       }
     };
 
     fetchAgendamentos();
-  }, [userId, role, token]);
+  }, [requestVariables.userId, requestVariables.role, requestVariables.token]);
 
   return (
     <Main>
       <div className="flex flex-col gap-5 justify-center">
-        <Welcome />
-        <AgendamentosTable agendamentos={agendamentos} />
+        <Welcome usuario={usuario} loading = {loading}/>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <AgendamentosTable agendamentos={agendamentos} />
+        )}
       </div>
     </Main>
   );
