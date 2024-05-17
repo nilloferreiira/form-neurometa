@@ -2,7 +2,6 @@
 
 import { backend } from "@/lib/backend";
 import { jwtResponse } from "@/utils/jwt-response-interface";
-import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 

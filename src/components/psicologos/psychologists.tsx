@@ -12,7 +12,7 @@ export function Psychologists() {
     <>
       {Array.isArray(psychologists) ? (
         psychologists?.map((psicologo) => (
-          <Dialog>
+          <Dialog key={psicologo.user.id}>
             <div className="w-full mx-auto flex items-center justify-center">
               <PsychologistsCard
                 id={psicologo.id}
