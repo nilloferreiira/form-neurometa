@@ -1,4 +1,4 @@
-import { getUserData } from "@/hooks/get-user-data";
+import { getUserApproved } from "@/hooks/get-user-approved";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +9,7 @@ import { ChevronDown } from "lucide-react";
 import { LogoutBtn } from "./logout-btn";
 
 export function DropDownUser() {
-  const { name } = getUserData();
+  const { name } = getUserApproved();
 
   return (
     <DropdownMenu>

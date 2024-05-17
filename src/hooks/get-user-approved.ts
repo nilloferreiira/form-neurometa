@@ -7,7 +7,7 @@ export interface UserApproved {
     approved: boolean
 }
 
-export function getUserData() {
+export function getUserApproved() {
     const token = cookies().get("token")?.value;
 
     if(!token) {
@@ -15,7 +15,6 @@ export function getUserData() {
     }
 
     const user: UserApproved = jwtDecode(token!)
-
 
     return user
 }
