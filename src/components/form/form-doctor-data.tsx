@@ -9,6 +9,7 @@ import {
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { FormSchema } from "@/utils/formSchema";
 import { ErrorSpan } from "../error-span";
+import { SelectUF } from "./select-uf";
 
 
 interface FormProps {
@@ -54,11 +55,7 @@ export function FormDoctorData({ onSubmit }: FormProps) {
           <SelectTrigger className="bg-transparent focus:ring-2 focus:ring-royleBlue/50">
             <SelectValue placeholder="Estado" />
           </SelectTrigger>
-          <SelectContent className="bg-royleBlue/20">
-            <SelectItem className="bg-zinc-50" value="SE">
-              SE
-            </SelectItem>
-          </SelectContent>
+         <SelectUF />
         </Select>
         {errors.uf && <ErrorSpan>{errors.uf.message}</ErrorSpan>}
         <Input
