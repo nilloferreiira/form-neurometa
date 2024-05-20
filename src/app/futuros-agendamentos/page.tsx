@@ -15,11 +15,13 @@ import {
 } from "@/utils/interfaces/AgendaResponseInterfaces";
 import { requestVariables } from "@/utils/requestVariables/requestVariables";
 import { Spinner } from "@/components/spinner";
+import { set } from "date-fns";
 
 export default function FuturosAgendamentos() {
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
   const [loading, setLoading] = useState(true); // Add this line
   const [usuario, setUsuario] = useState("");
+  const [consultas, setConsultas] = useState<Consulta[]>([]);
 
   useEffect(() => {
     const fetchAgendamentos = async () => {
@@ -67,6 +69,7 @@ export default function FuturosAgendamentos() {
         console.log(agendamentos); // Log the agendamentos
         setAgendamentos(agendamentos);
         setUsuario(usuario.nome);
+        setConsultas(consultas);
         setLoading(false); // Add this line
       } catch (error) {
         setLoading(false); // Add this line
@@ -83,7 +86,7 @@ export default function FuturosAgendamentos() {
         {loading ? (
           <Spinner />
         ) : (
-          <AgendamentosTable agendamentos={agendamentos} />
+          <AgendamentosTable agendamentos={agendamentos} consultas={consultas} role={requestVariables.role}/>
         )}
       </div>
     </Main>
