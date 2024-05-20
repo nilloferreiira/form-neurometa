@@ -1,11 +1,8 @@
 "use client";
 import { AgendamentosTable } from "@/components/agendamentos/AgendamentosTable";
-import { Info } from "@/components/homepage/info";
 import { Welcome } from "@/components/homepage/welcome";
 import { Main } from "@/components/main/main";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import {
   Agendamento,
@@ -15,7 +12,6 @@ import {
 } from "@/utils/interfaces/AgendaResponseInterfaces";
 import { requestVariables } from "@/utils/requestVariables/requestVariables";
 import { Spinner } from "@/components/spinner";
-import { set } from "date-fns";
 
 export default function FuturosAgendamentos() {
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);

@@ -26,6 +26,10 @@ export function Aside({isAsideOpen, setIsAsideOpen}: SideBarProps) {
           <li className="flex items-center justify-start hover:opacity-80">
             <Dot /> <Link href={"/upload"}>Entrega do documento</Link>
           </li>
+
+          <li className="flex items-center justify-start hover:opacity-80">
+            <Dot /> <Link href={"/futuros-agendamentos"}>Seus agendamentos</Link>
+          </li>
           <li className="flex items-center justify-start hover:opacity-80">
             <Dot /> <Link href={"/psicologos"}>Lista de psicologos</Link>
           </li>

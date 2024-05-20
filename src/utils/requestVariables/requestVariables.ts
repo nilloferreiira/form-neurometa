@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
 
-const token: any = Cookies.get('jwt');
+const token: any = Cookies.get('jwtToken');
 const header = 'Bearer ' + token;
 const decodedToken: any = jwtDecode(token);
 const userId = decodedToken.id;
