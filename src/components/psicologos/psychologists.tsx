@@ -4,18 +4,15 @@ import { Dialog } from "@radix-ui/react-dialog";
 import { PsychologistsCard } from "./psychologist-card";
 import { PsychologistsDialog } from "./psychologist-dialog";
 import { usePsychologists } from "@/hooks/use-psychologists";
-import { Input } from "../ui/input";
 
 export function Psychologists() {
   const { psychologists } = usePsychologists();
 
   return (
     <>
-      <Input />
-
       {Array.isArray(psychologists) ? (
         psychologists?.map((psicologo) => (
-          <Dialog>
+          <Dialog key={psicologo.user.id}>
             <div className="w-full mx-auto flex items-center justify-center">
               <PsychologistsCard
                 id={psicologo.id}

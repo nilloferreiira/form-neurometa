@@ -26,9 +26,9 @@ export async function useAuth(data: FormSchema) {
 
     Cookies.set("token", token, { path: "/", expires: 30 });
 
-    return true
+    return true;
   } catch (e) {
     console.log(`Erro durante o cadastro: ${e}`);
-    return false
+    return false;
   }
 }

@@ -22,6 +22,9 @@ import { SubmitAppointment } from "./submit-appointment";
 import { NavigationButtons } from "./navigation-buttons";
 import { Psychologist } from "@/utils/interface-psychologist";
 import { formatDateToISO } from "@/utils/formatDateToiso";
+import { User, useUser } from "@/hooks/use-user";
+import { backend } from "@/lib/backend";
+import { useCreateAppointment } from "@/hooks/use-create-appointment";
 
 type FieldName = keyof AppointmentSchema;
 
@@ -57,9 +60,36 @@ export function PsychologistsDialog(psicologo: Psychologist) {
   }
 
   const onSubmit: SubmitHandler<AppointmentSchema> = async (data) => {
+    const user: User = await useUser();
+    const startAppointmentDate = formatDateToISO(data);
+
+    const { createAppointment } = useCreateAppointment();
+
     try {
-      const dataToSubmit = formatDateToISO(data);
-      console.log(dataToSubmit);
+      const appointmentData = {
+        psicologoId: psicologo.user.id,
+        data: startAppointmentDate,
+        pacienteId: user.id,
+        dataInicio: null,
+        dataFim: null,
+        nota: null,
+        comentario: null,
+      };
+
+      const isAppointmentCreated = createAppointment(appointmentData);
+
+      if (!isAppointmentCreated) {
+        toast({
+          title: "Erro ao agendar a consulta",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Consulta agendada com sucesso!",
+          description: `Acesse a página de "Suas consultas" para mais detalhes.`,
+          variant: "default",
+        });
+      }
     } catch (error) {
       console.error("Error formatting date:", error);
     }
@@ -72,14 +102,21 @@ export function PsychologistsDialog(psicologo: Psychologist) {
         <DialogDescription className="space-y-3">
           {currentStep === 0 && (
             <h3 className="font-semibold text-zinc-800">
-              <span>Dr: </span>{psicologo.user.nome}
+              <span>Dr: </span>
+              {psicologo.user.nome}
               <h4 className="font-medium text-zinc-500">
                 Selecione uma data para a consulta
               </h4>
             </h3>
           )}
-          {currentStep === 1 && <h4 className="font-medium text-zinc-500">Selecione uma horário</h4>}
-          {currentStep === 2 && <h4 className="font-medium text-zinc-500">Você está agendando uma consulta para:</h4>}
+          {currentStep === 1 && (
+            <h4 className="font-medium text-zinc-500">Selecione uma horário</h4>
+          )}
+          {currentStep === 2 && (
+            <h4 className="font-medium text-zinc-500">
+              Você está agendando uma consulta para:
+            </h4>
+          )}
         </DialogDescription>
       </DialogHeader>
       <form

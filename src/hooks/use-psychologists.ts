@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 
 export function usePsychologists() {
   async function getPsychologists() {
-    let PsychologistResponse: Psychologist[] = [];
+    let psychologistResponse: Psychologist[] = [];
     const jwt = Cookies.get("jwtToken");
 
     try {
@@ -16,8 +16,7 @@ export function usePsychologists() {
           Authorization: `Bearer ${jwt}`,
         },
       });
-      console.log(response.data.$values);
-      PsychologistResponse = response.data.$values;
+      psychologistResponse = response.data.$values;
 
       if (!Array.isArray(response.data)) {
         throw new Error("Data is not an array!");
@@ -29,7 +28,7 @@ export function usePsychologists() {
 
 
     
-    return PsychologistResponse;
+    return psychologistResponse;
   }
 
   const { data: psychologists } = useQuery({

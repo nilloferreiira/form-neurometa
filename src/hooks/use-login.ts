@@ -23,6 +23,8 @@ export function useLogin() {
       const { token } = responseToken.data;
       Cookies.set("token", token, { path: "/", expires: 30 });
 
+
+      window.location.reload()
       return true;
     } catch (e) {
       console.log(`Erro ao realizar o login: ${e}`);

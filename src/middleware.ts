@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { UserApproved, getUserData } from "./hooks/get-user-data";
-import { jwtDecode } from "jwt-decode";
+import { getUserApproved } from "./hooks/get-user-approved";
 
 export default function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
@@ -16,23 +15,24 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(signInURl);
   }
 
-  const decoded: UserApproved = jwtDecode(token!);
+  // const isUserApproved: UserApproved = jwtDecode(token!);
+  const isUserApproved = getUserApproved();
 
   if (token) {
     if (request.nextUrl.pathname === "/") {
-      if (!decoded.approved) {
+      if (!isUserApproved.approved) {
         return NextResponse.redirect(uploadURL);
       }
       return NextResponse.redirect(homeURL);
     }
   }
   if (request.nextUrl.pathname === "/upload") {
-    if (decoded.approved) {
+    if (isUserApproved.approved) {
       return NextResponse.redirect(homeURL);
     }
   }
 }
 
 export const config = {
-  matcher: ["/", "/upload"],
+  matcher: ["/", "/upload", "/home", "/psicologos"],
 };

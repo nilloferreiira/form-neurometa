@@ -17,7 +17,7 @@ interface SubmitAppointmentProps {
 }
 
 export function SubmitAppointment({onSubmit, psicologo}: SubmitAppointmentProps) {
-  const { watch } = useFormContext<AppointmentSchema>();
+  const { watch, formState: { isSubmitting } } = useFormContext<AppointmentSchema>();
   const formData = watch();
 
   const date = dayjs(formData.date, 'DD/MM/YYYY');
@@ -32,7 +32,7 @@ export function SubmitAppointment({onSubmit, psicologo}: SubmitAppointmentProps)
 
       <Button 
       onClick={() => onSubmit}
-      className="bg-royleBlue hover:bg-royleBlue/90">Agendar</Button>
+      className="bg-royleBlue hover:bg-royleBlue/90">{isSubmitting ? "Agendando..." : "Agendar"}</Button>
     </div>
   );
 }

@@ -7,6 +7,8 @@ export function logout() {
   async function handleLogout() {
     try {
       Cookies.remove("token");
+      Cookies.remove("jwtToken");
+      window.location.reload()
       return router.push("/");
     } catch (e) {
       console.log(`Logout Error: ${e}`);
