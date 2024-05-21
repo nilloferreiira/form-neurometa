@@ -26,6 +26,8 @@ export async function useAuth(data: FormSchema) {
       console.log(response.data.message)
     }
 
+    console.log("usuario cadastrado")
+
     return true;
   } catch (e) {
     console.log(`Erro durante o cadastro: ${e}`);
