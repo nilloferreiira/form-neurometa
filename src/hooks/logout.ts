@@ -6,7 +6,6 @@ export function logout() {
   const router = useRouter();
   async function handleLogout() {
     try {
-      Cookies.remove("token");
       Cookies.remove("jwtToken");
       window.location.reload()
       return router.push("/");

@@ -1,6 +1,5 @@
 import { LoginSchema } from "@/utils/login-schema";
 import Cookies from "js-cookie";
-import { api } from "@/lib/api";
 import { backend } from "@/lib/backend";
 
 export function useLogin() {
@@ -11,20 +10,11 @@ export function useLogin() {
         password,
       });
 
-      const responseToken = await api.post("/login", {
-        email,
-        password,
-      });
-
-      const jwtToken  = backendToken.data;
+      const jwtToken = backendToken.data;
       const jwt = jwtToken.data.token;
-      Cookies.set("jwtToken", jwt, { path: "/", expires: 15})
+      Cookies.set("jwtToken", jwt, { path: "/", expires: 15 });
 
-      const { token } = responseToken.data;
-      Cookies.set("token", token, { path: "/", expires: 30 });
-
-
-      window.location.reload()
+      window.location.reload();
       return true;
     } catch (e) {
       console.log(`Erro ao realizar o login: ${e}`);

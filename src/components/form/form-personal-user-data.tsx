@@ -82,7 +82,7 @@ export function FormPersonalUserData({ onSubmit }: FormProps) {
             className="bg-transparent"
             placeholder="Seu CPF"
             {...register("cpf")}
-            type="number"
+            type="text"
           />
           {errors.cpf && (
             <ErrorSpan>{errors.cpf.message}</ErrorSpan>
