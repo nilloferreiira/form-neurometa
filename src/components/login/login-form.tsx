@@ -46,7 +46,7 @@ export function LoginForm() {
 
         throw new Error("Erro ao fazer o login");
       }
-      return router.push("/upload");
+      return router.push("/home");
     } catch (e) {
       toast({
         title: "Erro ao fazer login",
