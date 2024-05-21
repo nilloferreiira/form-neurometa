@@ -5,13 +5,24 @@ import { PsychologistsCard } from "./psychologist-card";
 import { PsychologistsDialog } from "./psychologist-dialog";
 import { usePsychologists } from "@/hooks/use-psychologists";
 
-export function Psychologists() {
+interface SearchProps {
+  search: string;
+}
+
+export function Psychologists({ search }: SearchProps) {
   const { psychologists } = usePsychologists();
+  
+  const filteredPsychologists =
+    search !== ""
+      ? psychologists?.filter((psychologist) =>
+          psychologist.user.nome.toLowerCase().includes(search.toLowerCase())
+        )
+      : psychologists;
 
   return (
     <>
       {Array.isArray(psychologists) ? (
-        psychologists?.map((psicologo) => (
+        filteredPsychologists?.map((psicologo) => (
           <Dialog key={psicologo.user.id}>
             <div className="w-full mx-auto flex items-center justify-center">
               <PsychologistsCard
