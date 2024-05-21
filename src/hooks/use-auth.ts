@@ -1,4 +1,5 @@
 import { api } from "@/lib/api";
+import { backend } from "@/lib/backend";
 import { FormSchema } from "@/utils/formSchema";
 import Cookies from "js-cookie";
 
@@ -21,6 +22,38 @@ export async function useAuth(data: FormSchema) {
       especialidade: data.especialidade,
       areaAtuacao: data.areaAtuacao,
     });
+
+  //   const backendResponse = await backend.post('/RegisterUser', {
+  //     registerUser: {
+  //               email: data.email,
+  //               password: data.password,
+  //               nome: data.name,
+  //               passwordConfirmation: data.confirmPassword,
+  //               agreeTerms: true,
+  //               enderecoCompleto: "endereço completo",
+  //               role: "Paciente",
+  //               fotoPerfil: "Zm90b3JndmVyc28=",
+  //               telefone: data.phoneNumber,
+  //               cpf: data.cpf,
+  //               rg: data.rg
+  //             },
+  //             paciente: {
+  //               fotoRgFrente: "Zm90b3JndmVyc28=",
+  //               fotoRgVerso: "Zm90b3JndmVyc28=",
+  //               comprovanteResidencia: "Zm90b3JndmVyc28=",
+  //               relatorioMedico: data.diagnostico,
+  //               pdfFormatado: "Zm90b3JndmVyc28=",
+  //               crmMedico: data.crm,
+  //               nomeMedico: data.doctorName,
+  //               cid: data.cid,
+  //               ufCrm: data.uf
+  //             }
+  // })
+
+  //   const jwtToken  = backendResponse.data;
+  //   console.log(jwtToken)
+  //   const jwt = jwtToken.data.token;
+  //   Cookies.set("jwtToken", jwt, { path: "/", expires: 15})
 
     const { token } = response.data;
 

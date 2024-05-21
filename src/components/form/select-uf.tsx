@@ -34,7 +34,7 @@ export function SelectUF() {
   return (
     <SelectContent className="bg-royleBlue/20">
       {ufArray.map((uf) => (
-      <SelectItem key={uf.value} className="bg-zinc-50" value={uf.value}>
+      <SelectItem key={uf.value} className="bg-zinc-50 z-50" value={uf.value}>
         {uf.label}
       </SelectItem>
       ))}

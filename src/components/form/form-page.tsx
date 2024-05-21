@@ -12,26 +12,27 @@ import { NavSteps } from "./nav-steps";
 import { NavigationButton } from "./navigation-button";
 import { toast } from "../ui/use-toast";
 import { useAuth } from "@/hooks/use-auth";
-import { useRouter } from "next/navigation";
 
 export function FormPage() {
   const formContext = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
   });
 
-  const router = useRouter()
-
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
       const successfulyRegister = useAuth(data);
-      if(!successfulyRegister) {
+      if (!successfulyRegister) {
         toast({
-          title: 'Erro ao realizar o cadastro.',
-          variant: "destructive"
-        })
+          title: "Erro ao realizar o cadastro.",
+          variant: "destructive",
+        });
       }
-
-      return router.push("/upload");
+      toast({
+        title: "Cadastro sendo realizado.",
+        description:
+          "Seu cadastro pode levar ate 50 segundos para ser feito. Por favor aguarde um pouco antes de ir para a pagina de upload",
+        variant: "default",
+      });
     } catch (error) {
       console.log(error);
       toast({
