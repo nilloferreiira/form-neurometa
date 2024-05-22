@@ -16,7 +16,7 @@ interface Agendamento {
 interface AgendamentosTableProps {
   agendamentos: Agendamento[];
   consultas: Consulta[];
-  role: string;
+  role: string | null;
 }
 
 export const AgendamentosTable: React.FC<AgendamentosTableProps> = ({
