@@ -6,7 +6,7 @@ import UserInfoDialog from "./userInfoPopup";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { CancelarConsulta } from "./cancelarConsultaDialog";
 import { useState } from "react";
-import { createHash } from "crypto";
+import { format, parseISO } from 'date-fns';
 
 interface Agendamento {
   nome: string;
@@ -31,25 +31,22 @@ export const AgendamentosTable: React.FC<AgendamentosTableProps> = ({
     alert("Consulta deletada com sucesso");
   };
 
-  const generateChannelName = (consulta: Consulta) => {
-    // Gerar o hash SHA-256 dos IDs do psicólogo e do paciente
-    const hashPsicologo = createHash("sha256")
-      .update(consulta.psicologoId)
-      .digest("hex")
-      .slice(-4);
-    const hashPaciente = createHash("sha256")
-      .update(consulta.pacienteId)
-      .digest("hex")
-      .slice(-4);
-
-    // Retornar o nome do canal com os hashes dos IDs
-    return `Psicologo${hashPsicologo}fimPaciente${hashPaciente}`;
+  const formatDate = (dateString: string) => {
+    // Mantém a data sem conversão de fuso horário
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const hours = String(date.getUTCHours()).padStart(2, '0');
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
   return (
     <div className="container">
       <h1 className="text-2xl font-bold text-center">Agendamentos</h1>
-      <br></br>
+      <br />
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr>
@@ -73,7 +70,7 @@ export const AgendamentosTable: React.FC<AgendamentosTableProps> = ({
                   : consulta.paciente.user.nome}
               </td>
               <td className="border text-center border-gray-300 p-3">
-                {new Date(consulta.data).toLocaleString()}
+                {formatDate(consulta.data)}
               </td>
               <td className="border items-center justify-center border-gray-300 p-3 flex space-x-1">
                 <Dialog>

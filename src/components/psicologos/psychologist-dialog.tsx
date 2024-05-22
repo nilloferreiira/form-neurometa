@@ -126,7 +126,8 @@ export function PsychologistsDialog(psicologo: Psychologist) {
         <FormProvider {...formContext}>
           {currentStep === 0 && <PickUpDate />}
 
-          {currentStep === 1 && <AppointmentScheduler />}
+
+          {currentStep === 1 && <AppointmentScheduler psicologo={psicologo} />}
 
           {currentStep === 2 && (
             <SubmitAppointment onSubmit={onSubmit} psicologo={psicologo} />

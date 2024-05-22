@@ -14,16 +14,19 @@ export function PickUpDate() {
     formState: { errors },
   } = useFormContext<AppointmentSchema>();
 
+  const handleDateChange = (value: Date | undefined) => {
+    setDate(value);
+    setValue("date", value!);
+  };
+
   return (
     <>
       <Calendar
         mode="single"
         selected={date}
-        onSelect={(value) => {
-          setDate(value);
-          setValue("date", value!);
-        }}
+        onSelect={handleDateChange}
         className="rounded-md border"
+        disabled={date => date < new Date()}
       />
 
       {errors && <ErrorSpan>{errors.date?.message}</ErrorSpan>}
