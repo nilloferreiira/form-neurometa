@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   LocalUser,
@@ -18,6 +19,7 @@ import {
   FaVideoSlash,
   FaTimes,
 } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function LiveVideo() {
   const appId = PUBLIC_AGORA_APP_ID.appId;
@@ -72,6 +74,8 @@ export default function LiveVideo() {
     },
     []
   );
+
+  const router = useRouter();
 
   return (
     <>
@@ -144,7 +148,8 @@ export default function LiveVideo() {
               onClick={() => {
                 setActiveConnection(false);
                 // Implemente a lógica de navegação aqui, USANDO HRF /home
-                window.location.href = "/home";
+                // window.location.href = "/home";
+                router.push("/home")
               }}
               style={{ color: "red" }}
             >
