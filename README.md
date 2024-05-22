@@ -8,13 +8,14 @@ A Plataforma Neurometa foi desenvolvida para oferecer terapias online com psicó
 
 - Next.js 14
 - React
-- Shadcn-UI
 - Tailwind CSS
+- Shadcn-UI
 - React Hook Form
 - React Tanstack Query
 - Zod
 - Axios
 - Day.js
+- TypeScript
 
 ## Como Utilizar
 
@@ -69,8 +70,6 @@ Se preferir rodar a aplicação localmente, siga estas etapas:
    npm run http
    ```
 
-## Documentação
+### Contato
 
-A documentação da API de validação para pessoas que têm ou já tiveram câncer está disponível na aplicação. Nela, você encontrará informações detalhadas sobre todas as rotas da API, incluindo o que cada rota faz e os tipos de retorno de cada uma.
-
----
+Em caso de qualquer bug ou problema com a aplicação, mande um email para [nilloferreiira@email.com](mailto:nilloferreiira@email.com)
