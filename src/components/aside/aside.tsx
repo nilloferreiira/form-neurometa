@@ -20,11 +20,12 @@ export function Aside({ isAsideOpen, setIsAsideOpen }: SideBarProps) {
   }, []);
 
   return (
-    <aside className={`transition-all ${isAsideOpen ? 'w-2/4 md:w-1/6' : 'w-10 md:w-16'} md:p-4 flex flex-col md:gap-5 items-center justify-start h-screen bg-white`}>
-      <button
-        className="w-full pl-2 transition-all"
-        onClick={setIsAsideOpen}
-      >
+    <aside
+      className={`transition-all ${
+        isAsideOpen ? "w-2/4 md:w-1/6" : "w-10 md:w-16"
+      } md:p-4 flex flex-col md:gap-5 items-center justify-start h-screen bg-white`}
+    >
+      <button className="w-full pl-2 transition-all" onClick={setIsAsideOpen}>
         {isAsideOpen ? <ChevronRight /> : <ChevronLeft />}
       </button>
       {isAsideOpen && (
@@ -34,9 +35,6 @@ export function Aside({ isAsideOpen, setIsAsideOpen }: SideBarProps) {
               <li className="flex items-center justify-start hover:opacity-80">
                 <Dot /> <Link href={"/"}>Login</Link>
               </li>
-              <li className="flex items-center justify-start hover:opacity-80">
-                <Dot /> <Link href={"/upload"}>Entrega do documento</Link>
-              </li>
             </>
           ) : (
             <>
@@ -44,7 +42,8 @@ export function Aside({ isAsideOpen, setIsAsideOpen }: SideBarProps) {
                 <Dot /> <Link href={"/"}>Home</Link>
               </li>
               <li className="flex items-center justify-start hover:opacity-80">
-                <Dot /> <Link href={"/futuros-agendamentos"}>Seus agendamentos</Link>
+                <Dot />{" "}
+                <Link href={"/futuros-agendamentos"}>Seus agendamentos</Link>
               </li>
               {role !== "Psicologo" && (
                 <li className="flex items-center justify-start hover:opacity-80">
