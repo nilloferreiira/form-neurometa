@@ -1,8 +1,11 @@
 import { api } from "@/lib/api";
+import { handleMedicalReportBase64 } from "@/utils/convert-to-base64";
 import { FormSchema } from "@/utils/formSchema";
 
 export async function useAuth(data: FormSchema) {
   try {
+    const { medicalReportBase64 } = await handleMedicalReportBase64(data.medicalReport)
+   
     const response = await api.post("/register", {
       name: data.name,
       email: data.email,
@@ -19,14 +22,15 @@ export async function useAuth(data: FormSchema) {
       cid: data.cid,
       especialidade: data.especialidade,
       areaAtuacao: data.areaAtuacao,
+      medicalReport: medicalReportBase64,
     });
 
-    if(response.status !== 201) {
-      console.log("Erro ao validar o usuario")
-      console.log(response.data.message)
+    if (response.status !== 201) {
+      console.log("Erro ao validar o usuario");
+      console.log(response.data.message);
     }
 
-    console.log("usuario cadastrado")
+    console.log("usuario cadastrado");
 
     return true;
   } catch (e) {

@@ -3,6 +3,10 @@ import { z } from "zod";
 export const formSchema = z
   .object({
     name: z.string().min(2, "Por favor, digite um nome válido!"),
+    // medicalReport: z
+    //   .instanceof(FileList, { message: "Image is required" })
+    //   .transform((list) => list.item(0)!),
+    medicalReport: z.any(), // FileList ta dando bug ao buildar
     email: z.string().email({ message: "Por favor, use um email válido!" }),
     password: z
       .string()

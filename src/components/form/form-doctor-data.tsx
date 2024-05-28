@@ -1,10 +1,7 @@
 import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Select, SelectTrigger,
+  SelectValue
 } from "@/components/ui/select";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import { FormSchema } from "@/utils/formSchema";
@@ -88,6 +85,15 @@ export function FormDoctorData({ onSubmit }: FormProps) {
         {errors.cid && (
           <ErrorSpan>{errors.cid.message}</ErrorSpan>
         )}
+          <Input
+            className="bg-transparent"
+            placeholder="relatorio"
+            {...register("medicalReport", { required: true }) }
+            type="file"
+          />
+          {/* {errors.medicalReport && (
+            <ErrorSpan>{errors.medicalReport.message}</ErrorSpan>
+          )} */}
       </div>
     </form>
   );

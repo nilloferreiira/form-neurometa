@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['static.vecteezy.com']
+        remotePatterns: [
+            {
+              protocol: 'https',
+              hostname: 'static.vecteezy.com',
+              pathname: '**',
+            },
+          ],
     }
 };
 
